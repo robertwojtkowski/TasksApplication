@@ -7,15 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="tasks" />
+        <module name="kodilla-good-patterns" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="kodilla-good-patterns" target="1.8" />
       <module name="tasks" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="kodilla-good-patterns" options="-parameters" />
       <module name="tasks" options="-parameters" />
     </option>
   </component>

@@ -32,8 +32,8 @@ public class TaskController {
             method = {RequestMethod.GET},
             value = {"/getTask"}
     )
-    public TaskDto getTask(@RequestParam Long taskId) {
-        return taskMapper.mapToTaskDto(service.findById(taskId));
+    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+        return taskMapper.mapToTaskDto(service.findById(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
     @RequestMapping(
@@ -41,7 +41,7 @@ public class TaskController {
             value = {"/deleteTask"}
     )
     public void deleteTask(@RequestParam Long taskId) {
-
+        service.deleteTask(taskId);
     }
 
     @RequestMapping(
@@ -50,7 +50,7 @@ public class TaskController {
             consumes = {"application/json"}
     )
     public void createTask(@RequestBody TaskDto taskDto) {
-
+        service.saveTask(taskMapper.mapToTask(taskDto));
     }
 
     @RequestMapping(
@@ -58,6 +58,6 @@ public class TaskController {
             value = {"updateTask"}
     )
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
-        return new TaskDto();
+        return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
 }
